@@ -1,0 +1,304 @@
+/* =========================
+   Google Font
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* =========================
+   Global Styles
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f7fb;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   Navbar
+========================= */
+
+.navbar {
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #0b5ed7
+    ) !important;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================
+   Main Content
+========================= */
+
+main {
+    flex: 1;
+}
+
+/* =========================
+   Cards
+========================= */
+
+.card {
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.shadow-sm,
+.shadow-lg {
+    transition: 0.3s ease;
+}
+
+/* =========================
+   Dashboard Banner
+========================= */
+
+.dashboard-banner {
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #eef5ff
+    );
+}
+
+.dashboard-banner h2 {
+    color: #0d6efd;
+}
+
+/* =========================
+   Statistics Cards
+========================= */
+
+.stats-card {
+    border-left: 5px solid #0d6efd;
+}
+
+.stats-card h2 {
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+/* =========================
+   Login Page
+========================= */
+
+.login-card {
+    border-radius: 25px;
+}
+
+.login-icon {
+    font-size: 5rem;
+    color: #0d6efd;
+}
+
+/* =========================
+   Forms
+========================= */
+
+.form-control,
+.form-select {
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 12px rgba(13, 110, 253, 0.2);
+}
+
+/* =========================
+   Buttons
+========================= */
+
+.btn {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #0b5ed7
+    );
+    border: none;
+}
+
+.btn-success {
+    border: none;
+}
+
+/* =========================
+   Tables
+========================= */
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead {
+    background: #f8f9fa;
+}
+
+.table thead th {
+    font-weight: 600;
+    color: #444;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f3f8ff;
+}
+
+/* =========================
+   Badges
+========================= */
+
+.badge {
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* =========================
+   Alerts
+========================= */
+
+.alert {
+    border-radius: 12px;
+}
+
+/* =========================
+   Footer
+========================= */
+
+.footer {
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 40px;
+}
+
+.footer p {
+    font-weight: 600;
+}
+
+/* =========================
+   Search Box
+========================= */
+
+.input-group-text {
+    border-radius: 12px 0 0 12px;
+}
+
+#appointmentSearch,
+#historySearch {
+    border-radius: 0 12px 12px 0;
+}
+
+/* =========================
+   Medical Record Area
+========================= */
+
+textarea {
+    resize: vertical;
+}
+
+/* =========================
+   Scrollbar
+========================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0d6efd;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0b5ed7;
+}
+
+/* =========================
+   Fade Animation
+========================= */
+
+.card,
+.alert,
+.table,
+.btn {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+
+    .dashboard-banner h2 {
+        font-size: 1.5rem;
+    }
+
+    .stats-card h2 {
+        font-size: 1.7rem;
+    }
+
+    .login-icon {
+        font-size: 4rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+}

@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Medical History | Smart Hospital System{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="row mb-4">
+
+        <div class="col-md-8">
+
+            <h2 class="fw-bold">
+                <i class="fas fa-file-medical me-2"></i>
+                Medical History
+            </h2>
+
+            <p class="text-muted mb-0">
+                View your complete consultation and treatment history.
+            </p>
+
+        </div>
+
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+
+            <a href="{{ url_for('patient_dashboard') }}"
+               class="btn btn-outline-primary">
+
+                <i class="fas fa-arrow-left me-2"></i>
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Search Card -->
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+
+                        <input type="text"
+                               id="historySearch"
+                               class="form-control"
+                               placeholder="Search diagnosis, prescription, doctor...">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Medical Records -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-white">
+
+            <h5 class="mb-0">
+                <i class="fas fa-notes-medical me-2"></i>
+                Consultation Records
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if records %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle"
+                       id="historyTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+                            <th>Visit Date</th>
+                            <th>Doctor</th>
+                            <th>Diagnosis</th>
+                            <th>Prescription</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for record in records %}
+
+                        <tr>
+
+                            <td>
+                                {{ loop.index }}
+                            </td>
+
+                            <td>
+                                {{ record.visit_date }}
+                            </td>
+
+                            <td>
+                                Dr. {{ record.doctor.user.name }}
+                            </td>
+
+                            <td>
+                                {{ record.diagnosis }}
+                            </td>
+
+                            <td>
+                                {{ record.prescription }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="text-center py-5">
+
+                <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
+
+                <h4>No Medical Records Found</h4>
+
+                <p class="text-muted">
+                    Your consultation history will appear here after doctor visits.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const searchInput = document.getElementById("historySearch");
+
+    if(searchInput){
+
+        searchInput.addEventListener("keyup", function(){
+
+            const filter = this.value.toLowerCase();
+
+            const rows = document.querySelectorAll(
+                "#historyTable tbody tr"
+            );
+
+            rows.forEach(function(row){
+
+                const text = row.innerText.toLowerCase();
+
+                row.style.display =
+                    text.includes(filter)
+                    ? ""
+                    : "none";
+
+            });
+
+        });
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

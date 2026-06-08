@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}Appointments | Smart Hospital System{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="row mb-4">
+
+        <div class="col-md-8">
+
+            <h2 class="fw-bold">
+                <i class="fas fa-calendar-check me-2"></i>
+                Appointments
+            </h2>
+
+            <p class="text-muted mb-0">
+                View and manage appointment records.
+            </p>
+
+        </div>
+
+        {% if current_user.role == 'patient' %}
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+
+            <a href="{{ url_for('book_appointment') }}"
+               class="btn btn-primary">
+
+                <i class="fas fa-calendar-plus me-2"></i>
+                Book Appointment
+
+            </a>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Search Card -->
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+
+                        <input type="text"
+                               id="appointmentSearch"
+                               class="form-control"
+                               placeholder="Search appointments...">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Appointments Table -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-white">
+
+            <h5 class="mb-0">
+                <i class="fas fa-list me-2"></i>
+                Appointment Records
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if appointments %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle" id="appointmentsTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            {% if current_user.role == 'doctor' %}
+                            <th>Patient</th>
+                            {% endif %}
+
+                            {% if current_user.role == 'patient' %}
+                            <th>Doctor</th>
+                            {% endif %}
+
+                            <th>Date</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for appointment in appointments %}
+
+                        <tr>
+
+                            <td>
+                                {{ loop.index }}
+                            </td>
+
+                            {% if current_user.role == 'doctor' %}
+                            <td>
+                                {{ appointment.patient.user.name }}
+                            </td>
+                            {% endif %}
+
+                            {% if current_user.role == 'patient' %}
+                            <td>
+                                Dr. {{ appointment.doctor.user.name }}
+                            </td>
+                            {% endif %}
+
+                            <td>
+                                {{ appointment.appointment_date }}
+                            </td>
+
+                            <td>
+
+                                {% if appointment.status == 'Pending' %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>
+
+                                {% elif appointment.status == 'Approved' %}
+
+                                    <span class="badge bg-primary">
+                                        Approved
+                                    </span>
+
+                                {% elif appointment.status == 'Completed' %}
+
+                                    <span class="badge bg-success">
+                                        Completed
+                                    </span>
+
+                                {% elif appointment.status == 'Cancelled' %}
+
+                                    <span class="badge bg-danger">
+                                        Cancelled
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+                                        {{ appointment.status }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="text-center py-5">
+
+                <i class="fas fa-calendar-times fa-4x text-muted mb-3"></i>
+
+                <h4>No Appointments Found</h4>
+
+                <p class="text-muted">
+                    Appointment records will appear here.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const searchInput = document.getElementById("appointmentSearch");
+
+    if(searchInput){
+
+        searchInput.addEventListener("keyup", function(){
+
+            let filter = this.value.toLowerCase();
+
+            let rows = document.querySelectorAll("#appointmentsTable tbody tr");
+
+            rows.forEach(function(row){
+
+                let text = row.innerText.toLowerCase();
+
+                row.style.display = text.includes(filter)
+                    ? ""
+                    : "none";
+
+            });
+
+        });
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

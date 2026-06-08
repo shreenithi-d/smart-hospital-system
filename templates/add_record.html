@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block title %}Add Medical Record | Smart Hospital System{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="row mb-4">
+
+        <div class="col-12">
+
+            <h2 class="fw-bold">
+                <i class="fas fa-notes-medical me-2"></i>
+                Add Medical Record
+            </h2>
+
+            <p class="text-muted">
+                Create a consultation record for the selected patient.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <!-- Patient Information -->
+        <div class="col-lg-4 mb-4">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h5 class="mb-0">
+                        <i class="fas fa-user-injured me-2"></i>
+                        Patient Details
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="text-center mb-3">
+
+                        <i class="fas fa-user-circle fa-5x text-primary"></i>
+
+                    </div>
+
+                    <table class="table table-borderless">
+
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ patient.user.name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Age</th>
+                            <td>{{ patient.age }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Gender</th>
+                            <td>{{ patient.gender }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Blood Group</th>
+                            <td>{{ patient.blood_group }}</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Medical Record Form -->
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-success text-white">
+
+                    <h5 class="mb-0">
+                        <i class="fas fa-file-medical me-2"></i>
+                        Consultation Form
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Diagnosis
+                            </label>
+
+                            <textarea name="diagnosis"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Enter diagnosis..."
+                                      required></textarea>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Prescription
+                            </label>
+
+                            <textarea name="prescription"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Enter prescription..."
+                                      required></textarea>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Doctor Notes
+                            </label>
+
+                            <textarea name="notes"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Additional notes (optional)"></textarea>
+
+                        </div>
+
+                        <div class="alert alert-info">
+
+                            <i class="fas fa-circle-info me-2"></i>
+
+                            Saving this record will add it to the patient's
+                            medical history and mark the consultation as completed.
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-success">
+
+                                <i class="fas fa-save me-2"></i>
+                                Save Record
+
+                            </button>
+
+                            <a href="{{ url_for('doctor_dashboard') }}"
+                               class="btn btn-secondary">
+
+                                <i class="fas fa-arrow-left me-2"></i>
+                                Back
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Previous Records -->
+    {% if previous_records %}
+
+    <div class="row mt-4">
+
+        <div class="col-12">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+                        <i class="fas fa-history me-2"></i>
+                        Previous Medical Records
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Date</th>
+                                    <th>Doctor</th>
+                                    <th>Diagnosis</th>
+                                    <th>Prescription</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for record in previous_records %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ record.visit_date }}
+                                    </td>
+
+                                    <td>
+                                        Dr. {{ record.doctor.user.name }}
+                                    </td>
+
+                                    <td>
+                                        {{ record.diagnosis }}
+                                    </td>
+
+                                    <td>
+                                        {{ record.prescription }}
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
